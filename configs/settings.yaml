@@ -1,0 +1,20 @@
+data:
+  start_year: 2020
+  end_year: 2025
+
+filings:
+  form_type: "10-K"
+
+financial_metrics:
+  - revenue
+  - cost_of_revenue
+  - gross_profit
+  - operating_income
+  - operating_expenses
+  - net_income
+  - total_assets
+  - total_liabilities
+  - stockholders_equity
+  - operating_cash_flow
+  - capital_expenditures
+  - eps

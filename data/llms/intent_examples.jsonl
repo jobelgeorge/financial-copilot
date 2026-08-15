@@ -1,0 +1,14 @@
+{"question": "What was Apple's revenue growth?", "intent": "revenue_growth"}
+{"question": "How quickly is Apple's revenue increasing?", "intent": "revenue_growth"}
+{"question": "Has Apple's revenue grown over the years?", "intent": "revenue_growth"}
+
+{"question": "What is Apple's profit margin?", "intent": "profit_margin"}
+{"question": "How profitable is Apple?", "intent": "profit_margin"}
+{"question": "Has Apple's profitability improved?", "intent": "profit_margin"}
+
+{"question": "What was Apple's latest revenue?", "intent": "latest_summary"}
+{"question": "How much cash does Apple have?", "intent": "latest_summary"}
+{"question": "What are Apple's latest financial results?", "intent": "latest_summary"}
+
+{"question": "What is Apple's revenue CAGR?", "intent": "revenue_cagr"}
+{"question": "What has Apple's average annual revenue growth been?", "intent": "revenue_cagr"}

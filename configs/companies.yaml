@@ -1,0 +1,28 @@
+companies:
+  - name: Apple
+    ticker: AAPL
+    cik: "0000320193"
+
+  - name: Microsoft
+    ticker: MSFT
+    cik: "0000789019"
+
+  - name: Amazon
+    ticker: AMZN
+    cik: "0001018724"
+
+  - name: Alphabet
+    ticker: GOOGL
+    cik: "0001652044"
+
+  - name: NVIDIA
+    ticker: NVDA
+    cik: "0001045810"
+
+  - name: Tesla
+    ticker: TSLA
+    cik: "0001318605"
+
+  - name: Meta
+    ticker: META
+    cik: "0001326801"
