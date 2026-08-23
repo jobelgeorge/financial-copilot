@@ -1,0 +1,55 @@
+question,expected_tool
+"How has Apple's revenue grown over the years?",get_revenue_growth
+"Is Apple's revenue increasing?",get_revenue_growth
+"What has Apple's sales growth looked like?",get_revenue_growth
+"How quickly is Apple's revenue growing?",get_revenue_growth
+"Has Apple's revenue been growing consistently?",get_revenue_growth
+"What is Apple's revenue growth rate?",get_revenue_growth
+"How has Apple's profit margin changed?",get_profit_margin
+"Is Apple becoming more profitable?",get_profit_margin
+"Is Apple's profitability improving?",get_profit_margin
+"What is Apple's net profit margin?",get_profit_margin
+"Has Apple's profitability increased?",get_profit_margin
+"How profitable is Apple compared with previous years?",get_profit_margin
+"How quickly are Apple's assets growing?",get_asset_growth
+"Are Apple's assets increasing over time?",get_asset_growth
+"Has Apple's balance sheet grown?",get_asset_growth
+"What is Apple's asset growth rate?",get_asset_growth
+"Are Apple's total assets increasing?",get_asset_growth
+"How have Apple's assets changed over the years?",get_asset_growth
+"How much of Apple's assets are financed by liabilities?",get_liability_to_asset_ratio
+"Is Apple highly dependent on liabilities?",get_liability_to_asset_ratio
+"What percentage of Apple's assets are liabilities?",get_liability_to_asset_ratio
+"How leveraged is Apple based on its liabilities?",get_liability_to_asset_ratio
+"Has Apple's liability-to-asset ratio changed?",get_liability_to_asset_ratio
+"How large are Apple's liabilities relative to its assets?",get_liability_to_asset_ratio
+"How strong is Apple's operating cash flow?",get_operating_cash_flow_margin
+"How much cash does Apple generate from operations relative to sales?",get_operating_cash_flow_margin
+"Is Apple's operating cash flow improving?",get_operating_cash_flow_margin
+"How efficiently does Apple generate operating cash flow?",get_operating_cash_flow_margin
+"What is Apple's operating cash flow margin?",get_operating_cash_flow_margin
+"How has Apple's operating cash flow performed?",get_operating_cash_flow_margin
+"What is Apple's long-term revenue growth rate?",get_revenue_cagr
+"How fast has Apple's revenue grown annually over the long term?",get_revenue_cagr
+"What is Apple's revenue CAGR?",get_revenue_cagr
+"What has Apple's average annual revenue growth been?",get_revenue_cagr
+"How quickly has Apple grown its revenue over the long term?",get_revenue_cagr
+"What is Apple's long-term sales growth?",get_revenue_cagr
+"How quickly has Apple's net income grown over the long term?",get_net_income_cagr
+"What is Apple's net income CAGR?",get_net_income_cagr
+"How fast has Apple's profit grown annually?",get_net_income_cagr
+"What has Apple's long-term net income growth been?",get_net_income_cagr
+"How quickly has Apple's net income increased over the years?",get_net_income_cagr
+"What is Apple's average annual net income growth?",get_net_income_cagr
+"Is Apple's net income growing faster than its revenue?",get_revenue_vs_income_growth
+"Has Apple's profit growth outpaced revenue growth?",get_revenue_vs_income_growth
+"Is net income growing faster than sales?",get_revenue_vs_income_growth
+"How does Apple's revenue growth compare with net income growth?",get_revenue_vs_income_growth
+"Has Apple's income growth kept up with its revenue growth?",get_revenue_vs_income_growth
+"Compare Apple's revenue growth with its net income growth",get_revenue_vs_income_growth
+"What are Apple's latest financial results?",get_latest_summary
+"What does Apple's latest financial year look like?",get_latest_summary
+"Give me Apple's latest financial summary",get_latest_summary
+"What are Apple's most recent financial metrics?",get_latest_summary
+"Summarize Apple's latest financial performance",get_latest_summary
+"Give me an overview of Apple's latest financial results",get_latest_summary

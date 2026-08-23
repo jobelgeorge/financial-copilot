@@ -21,8 +21,13 @@ TOOLS = {
 
     "get_revenue_growth": {
         "description": (
-            "Calculates year-over-year revenue growth "
-            "for a company."
+            "Measures how much a company's revenue changes "
+            "from one fiscal year to the next. Use this tool "
+            "when the question asks about year-over-year revenue "
+            "growth, recent revenue growth, sales growth, or "
+            "whether revenue is increasing or decreasing. "
+            "Do NOT use this tool for long-term average growth "
+            "or CAGR questions."
         ),
         "input": {
             "company": "string"
@@ -36,8 +41,13 @@ TOOLS = {
 
     "get_revenue_cagr": {
         "description": (
-            "Calculates the compound annual growth rate "
-            "of revenue over the available financial period."
+            "Calculates the compound annual growth rate (CAGR) "
+            "of revenue over the entire available financial period. "
+            "Use this tool when the question explicitly asks about "
+            "long-term revenue growth, average annual revenue growth, "
+            "revenue CAGR, or how quickly revenue grew over a long "
+            "period. Do NOT use this tool for simple year-over-year "
+            "revenue growth."
         ),
         "input": {
             "company": "string"
@@ -49,8 +59,12 @@ TOOLS = {
 
     "get_profit_margin": {
         "description": (
-            "Calculates net profit margin as a percentage "
-            "of revenue."
+            "Calculates net profit margin, which is net income "
+            "divided by revenue. Use this tool when the question "
+            "asks about profitability, profit margin, net margin, "
+            "or whether the company is becoming more profitable. "
+            "This measures profitability, not the growth rate of "
+            "net income."
         ),
         "input": {
             "company": "string"
@@ -63,8 +77,12 @@ TOOLS = {
 
     "get_net_income_cagr": {
         "description": (
-            "Calculates the compound annual growth rate "
-            "of net income."
+            "Calculates the compound annual growth rate (CAGR) "
+            "of net income over the available financial period. "
+            "Use this tool when the question asks how quickly "
+            "profit or net income has grown over the long term. "
+            "Do NOT use this tool when the question asks about "
+            "profit margin or profitability."
         ),
         "input": {
             "company": "string"
@@ -118,8 +136,13 @@ TOOLS = {
 
     "get_revenue_vs_income_growth": {
         "description": (
-            "Compares year-over-year revenue growth "
-            "with net income growth."
+            "Compares year-over-year revenue growth with "
+            "year-over-year net income growth. Use this tool "
+            "when the question explicitly compares revenue "
+            "growth against net income or profit growth, such as "
+            "whether profit is growing faster than sales. "
+            "Do NOT use this tool for questions about profit "
+            "margin alone."
         ),
         "input": {
             "company": "string"
