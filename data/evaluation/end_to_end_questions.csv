@@ -1,0 +1,21 @@
+question,expected_company,expected_tool
+"How has Apple's revenue grown?","Apple",get_revenue_growth
+"Is Apple's profitability improving?","Apple",get_profit_margin
+"How quickly are Apple's assets growing?","Apple",get_asset_growth
+"How much of Apple's assets are financed by liabilities?","Apple",get_liability_to_asset_ratio
+"How strong is Apple's operating cash flow?","Apple",get_operating_cash_flow_margin
+"What is Apple's long-term revenue growth rate?","Apple",get_revenue_cagr
+"How quickly has Apple's net income grown over the long term?","Apple",get_net_income_cagr
+"Is Apple's net income growing faster than its revenue?","Apple",get_revenue_vs_income_growth
+"What are Apple's latest financial results?","Apple",get_latest_summary
+"What are Apple's overall financial trends?","Apple",get_trend_summary
+"How has Amazon's revenue grown?","Amazon",get_revenue_growth
+"Is Amazon becoming more profitable?","Amazon",get_profit_margin
+"How quickly are Amazon's assets growing?","Amazon",get_asset_growth
+"What is Amazon's long-term revenue growth rate?","Amazon",get_revenue_cagr
+"How quickly has Amazon's net income grown?","Amazon",get_net_income_cagr
+"What are Amazon's latest financial results?","Amazon",get_latest_summary
+"How strong is Amazon's operating cash flow?","Amazon",get_operating_cash_flow_margin
+"How dependent is Amazon on liabilities?","Amazon",get_liability_to_asset_ratio
+"Is Amazon's net income growing faster than its revenue?","Amazon",get_revenue_vs_income_growth
+"What are Amazon's overall financial trends?","Amazon",get_trend_summary

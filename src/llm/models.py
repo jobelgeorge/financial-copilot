@@ -1,21 +1,27 @@
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
-
-MODEL_NAME = "Qwen/Qwen2.5-0.5B-Instruct"
+MODEL_NAME = "Qwen/Qwen2.5-1.5B-Instruct"
 
 
 class FinancialLLM:
 
     def __init__(self):
-        # we download the tokenizer associated with the model
+
+        print("DEBUG A: Starting tokenizer", flush=True)
+
         self.tokenizer = AutoTokenizer.from_pretrained(
             MODEL_NAME
         )
 
-        #loads the actual pretrained decoder-only Transformer
+        print("DEBUG B: Tokenizer loaded", flush=True)
+
+        print("DEBUG C: Starting model", flush=True)
+
         self.model = AutoModelForCausalLM.from_pretrained(
             MODEL_NAME
         )
+
+        print("DEBUG D: Model loaded", flush=True)
 
     def generate(self, prompt: str) -> str:
 

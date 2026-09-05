@@ -10,8 +10,8 @@ class ToolRouter:
     to the most appropriate financial tool.
     """
 
-    def __init__(self):
-        self.llm = FinancialLLM()
+    def __init__(self, llm):
+        self.llm = llm
 
         self.few_shot_examples = [
             {
@@ -276,13 +276,16 @@ Never invent a tool name.
 
         return result
     
-_default_router = ToolRouter()
+_default_router = None
 
 
 def route_question(question):
-    """
-    Route a question using the default ToolRouter.
-    """
+
+    if _default_router is None:
+        raise RuntimeError(
+            "Default router has not been initialized."
+        )
+
     result = _default_router.route_question(question)
 
     if result is None:

@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 class FinancialAnalyzer:
     #Perform financial analysis on company financial data
@@ -77,37 +78,52 @@ class FinancialAnalyzer:
     def revenue_cagr(self) -> float:
         #Calculate average annual compounded growth rate (CAGR) of revenue over the available period.
         #How quickly did revenue grow on average over a period?
-        first_revenue = self.financials.iloc[0]["revenue"]
-        last_revenue = self.financials.iloc[-1]["revenue"]
+        df = self.financials[
+            ["fiscal_year", "revenue"]
+        ].dropna(subset=["revenue"]).copy()
 
-        first_year = self.financials.iloc[0]["fiscal_year"]
-        last_year = self.financials.iloc[-1]["fiscal_year"]
+        if len(df) < 2:
+            return np.nan
 
-        years = last_year - first_year
+        start_value = df.iloc[0]["revenue"]
+        end_value = df.iloc[-1]["revenue"]
 
-        if years <= 0:
-            return 0.0
+        start_year = df.iloc[0]["fiscal_year"]
+        end_year = df.iloc[-1]["fiscal_year"]
+
+        years = end_year - start_year
+
+        if years <= 0 or start_value <= 0:
+            return np.nan
 
         cagr = (
-            (last_revenue / first_revenue) ** (1 / years)
-            - 1
+            (end_value / start_value) ** (1 / years) - 1
         ) * 100
 
         return cagr
     
     def net_income_cagr(self) -> float:
-        #Calculate net income CAGR over the available period.
+    # Calculate net income CAGR over the available period.
 
-        first_income = self.financials.iloc[0]["net_income"]
-        last_income = self.financials.iloc[-1]["net_income"]
+        df = self.financials[
+            ["fiscal_year", "net_income"]
+        ].dropna(
+            subset=["net_income"]
+        ).copy()
 
-        first_year = self.financials.iloc[0]["fiscal_year"]
-        last_year = self.financials.iloc[-1]["fiscal_year"]
+        if len(df) < 2:
+            return np.nan
+
+        first_income = df.iloc[0]["net_income"]
+        last_income = df.iloc[-1]["net_income"]
+
+        first_year = df.iloc[0]["fiscal_year"]
+        last_year = df.iloc[-1]["fiscal_year"]
 
         years = last_year - first_year
 
         if years <= 0 or first_income <= 0:
-            return 0.0
+            return np.nan
 
         cagr = (
             (last_income / first_income) ** (1 / years)
