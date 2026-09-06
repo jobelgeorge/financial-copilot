@@ -1,7 +1,7 @@
 import pandas as pd
 
 from src.application.financial_assistant import FinancialAssistant
-
+from src.evaluation.failure_analysis import FailureAnalyzer
 
 def evaluate():
 
@@ -54,6 +54,7 @@ def evaluate():
                     "tool_correct":tool_correct,
                     "answer":answer,
                     "answer_valid": answer_valid,
+                    "error": None,
                 }
             )
 
@@ -63,19 +64,22 @@ def evaluate():
 
         except Exception as e:
 
-            print(f"ERROR: {e}")
+            error_message = str(e)
+
+            print(f"ERROR: {error_message}")
 
             results.append(
                 {
                     "question": question,
-                    "expected_company":row["expected_company"],
+                    "expected_company": row["expected_company"],
                     "predicted_company": None,
                     "company_correct": False,
-                    "expected_tool":row["expected_tool"],
+                    "expected_tool": row["expected_tool"],
                     "predicted_tool": None,
                     "tool_correct": False,
                     "answer": None,
                     "answer_valid": False,
+                    "error": error_message,
                 }
             )
 
@@ -158,6 +162,35 @@ def evaluate():
     results_df.to_csv(
         output_file,
         index=False
+    )
+    
+    analyzer = FailureAnalyzer(results_df)
+
+    analysis_df = analyzer.analyze()
+
+    failure_analysis_file = (
+        "data/evaluation/"
+        "failure_analysis.csv"
+    )
+
+    analysis_df.to_csv(
+        failure_analysis_file,
+        index=False
+    )
+
+    summary = analyzer.summary()
+
+    print("\n")
+    print("=" * 70)
+    print("FAILURE ANALYSIS")
+    print("=" * 70)
+
+    for key, value in summary.items():
+        print(f"{key}: {value}")
+
+    print(
+        f"\nFailure analysis saved to: "
+        f"{failure_analysis_file}"
     )
 
     print(
