@@ -1,0 +1,31 @@
+id,category,question,expected_company,expected_tool,expected_behavior
+R001,PARAPHRASE,How has Apple's revenue changed over time?,Apple,get_revenue_growth,ROUTE
+R002,PARAPHRASE,Tell me about Apple's revenue growth.,Apple,get_revenue_growth,ROUTE
+R003,PARAPHRASE,Has Apple's revenue been increasing?,Apple,get_revenue_growth,ROUTE
+R004,PARAPHRASE,How is Apple becoming more profitable?,Apple,get_profit_margin,ROUTE
+R005,PARAPHRASE,Has Apple's profit margin improved over the years?,Apple,get_profit_margin,ROUTE
+R006,PARAPHRASE,How has Apple's profitability changed?,Apple,get_profit_margin,ROUTE
+R007,PARAPHRASE,How have Apple's assets changed over the years?,Apple,get_asset_growth,ROUTE
+R008,PARAPHRASE,Are Apple's assets increasing?,Apple,get_asset_growth,ROUTE
+R009,PARAPHRASE,Tell me about Apple's asset growth.,Apple,get_asset_growth,ROUTE
+R010,PARAPHRASE,How has Amazon's revenue changed over time?,Amazon,get_revenue_growth,ROUTE
+R011,PARAPHRASE,Has Amazon's revenue been increasing?,Amazon,get_revenue_growth,ROUTE
+R012,PARAPHRASE,Tell me about Amazon's revenue growth.,Amazon,get_revenue_growth,ROUTE
+R013,COMPANY_VARIATION,How has Apple Inc.'s revenue grown?,Apple,get_revenue_growth,ROUTE
+R014,COMPANY_VARIATION,How is Apple Inc.'s profitability changing?,Apple,get_profit_margin,ROUTE
+R015,COMPANY_VARIATION,How quickly are Apple Inc.'s assets growing?,Apple,get_asset_growth,ROUTE
+R016,COMPANY_VARIATION,How has Amazon.com Inc.'s revenue grown?,Amazon,get_revenue_growth,ROUTE
+R017,COMPANY_VARIATION,How profitable is Amazon.com Inc.?,Amazon,get_profit_margin,ROUTE
+R018,COMPANY_VARIATION,How quickly are Amazon.com's assets growing?,Amazon,get_asset_growth,ROUTE
+R019,AMBIGUOUS,How is Apple doing?,,,CLARIFICATION
+R020,AMBIGUOUS,How is Amazon performing?,,,CLARIFICATION
+R021,AMBIGUOUS,Is Apple financially healthy?,,,CLARIFICATION
+R022,AMBIGUOUS,Is Amazon doing well financially?,,,CLARIFICATION
+R023,AMBIGUOUS,Tell me about Apple's financial performance.,,,CLARIFICATION
+R024,AMBIGUOUS,What is happening with Amazon's financials?,,,CLARIFICATION
+R025,UNSUPPORTED,What is Apple's current stock price?,Apple,,UNSUPPORTED
+R026,UNSUPPORTED,What will Apple's revenue be in 2030?,Apple,,UNSUPPORTED
+R027,UNSUPPORTED,Should I buy Apple stock?,Apple,,UNSUPPORTED
+R028,UNSUPPORTED,What is Apple's P/E ratio?,Apple,,UNSUPPORTED
+R029,UNSUPPORTED,What is Amazon's current stock price?,Amazon,,UNSUPPORTED
+R030,UNSUPPORTED,Will Amazon's revenue increase next year?,Amazon,,UNSUPPORTED

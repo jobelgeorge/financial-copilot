@@ -1,0 +1,16 @@
+id,category,description,expected_behavior
+E001,MISSING_METRIC,Revenue metric completely unavailable,FAIL_GRACEFULLY
+E002,MISSING_METRIC,Net income metric completely unavailable,FAIL_GRACEFULLY
+E003,NAN_VALUES,Revenue contains missing values,VALID_RESULT
+E004,NAN_VALUES,Net income contains missing values,VALID_RESULT
+E005,NEGATIVE_NET_INCOME,Company has negative net income,VALID_RESULT
+E006,INSUFFICIENT_DATA,Only one year of revenue available for CAGR,RETURN_NAN
+E007,INSUFFICIENT_DATA,Only one year of net income available for CAGR,RETURN_NAN
+E008,ZERO_REVENUE,Revenue is zero when calculating profit margin,NO_CRASH
+E009,ZERO_REVENUE,Revenue is zero when calculating operating cash flow margin,NO_CRASH
+E010,ZERO_ASSETS,Assets are zero when calculating liability to asset ratio,NO_CRASH
+E011,MISSING_YEARS,Fiscal years contain gaps,SEMANTIC_REVIEW
+E012,INCOMPLETE_RECORDS,Different financial metrics have different available years,SEMANTIC_REVIEW
+E013,EMPTY_DATASET,No financial records available,FAIL_GRACEFULLY
+E014,UNUSUAL_VALUES,Revenue experiences an extreme increase,VALID_RESULT
+E015,UNUSUAL_VALUES,Revenue experiences an extreme decline,VALID_RESULT

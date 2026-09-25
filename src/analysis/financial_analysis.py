@@ -10,18 +10,31 @@ class FinancialAnalyzer:
         self.financials = self.financials.sort_values(
             "fiscal_year"
         ).reset_index(drop=True)
+        
+    def _require_columns(self, columns):
+        """
+        Ensure required financial columns are available.
+        """
+        missing = [
+            column
+            for column in columns
+            if column not in self.financials.columns
+        ]
 
-    def revenue_growth(self) -> pd.DataFrame:
-        #Calculate year-over-year revenue growth
+        if missing:
+            raise ValueError(
+                f"Required financial columns are missing: {missing}"
+            )
+
+    def revenue_growth(self):
+        self._require_columns(["fiscal_year", "revenue"])
 
         df = self.financials[
             ["fiscal_year", "revenue"]
         ].copy()
 
         df["revenue_growth_pct"] = (
-            df["revenue"]
-            .pct_change()
-            * 100
+            df["revenue"].pct_change() * 100
         )
 
         return df
@@ -29,14 +42,18 @@ class FinancialAnalyzer:
     def net_profit_margin(self) -> pd.DataFrame:
         #Calculate net profit margin.
 
+        self._require_columns(
+        ["fiscal_year", "revenue", "net_income"]
+        )
+
         df = self.financials[
             ["fiscal_year", "revenue", "net_income"]
         ].copy()
 
-        df["net_profit_margin_pct"] = (
-            df["net_income"]
-            / df["revenue"]
-            * 100
+        df["net_profit_margin_pct"] = np.where(
+            df["revenue"] != 0,
+            df["net_income"] / df["revenue"] * 100,
+            np.nan
         )
 
         return df
@@ -44,18 +61,22 @@ class FinancialAnalyzer:
     def operating_cash_flow_margin(self) -> pd.DataFrame:
         #Calculate operating cash flow margin
 
+        self._require_columns(
+            ["fiscal_year", "revenue", "operating_cash_flow"]
+        )
+
         df = self.financials[
             [
                 "fiscal_year",
                 "revenue",
-                "operating_cash_flow",
+                "operating_cash_flow"
             ]
         ].copy()
 
-        df["operating_cash_flow_margin_pct"] = (
-            df["operating_cash_flow"]
-            / df["revenue"]
-            * 100
+        df["operating_cash_flow_margin_pct"] = np.where(
+            df["revenue"] != 0,
+            df["operating_cash_flow"] / df["revenue"] * 100,
+            np.nan
         )
 
         return df
@@ -135,18 +156,22 @@ class FinancialAnalyzer:
     def liability_to_asset_ratio(self) -> pd.DataFrame:
         #Calculate liabilities as a percentage of assets.
 
+        self._require_columns(
+            ["fiscal_year", "assets", "liabilities"]
+        )
+
         df = self.financials[
             [
                 "fiscal_year",
                 "assets",
-                "liabilities",
+                "liabilities"
             ]
         ].copy()
 
-        df["liability_to_asset_pct"] = (
-            df["liabilities"]
-            / df["assets"]
-            * 100
+        df["liability_to_asset_pct"] = np.where(
+            df["assets"] != 0,
+            df["liabilities"] / df["assets"] * 100,
+            np.nan
         )
 
         return df
@@ -184,6 +209,21 @@ class FinancialAnalyzer:
     def latest_year_summary(self) -> dict:
         #Return key financial metrics for the latest fiscal year.
 
+        self._require_columns([
+        "fiscal_year",
+        "revenue",
+        "net_income",
+        "assets",
+        "liabilities",
+        "cash",
+        "operating_cash_flow"
+        ])
+
+        if self.financials.empty:
+            raise ValueError(
+                "No financial records are available."
+            )
+            
         latest = self.financials.iloc[-1]
 
         revenue_growth = (
@@ -193,24 +233,31 @@ class FinancialAnalyzer:
             * 100
         )
 
-        profit_margin = (
-            latest["net_income"]
-            / latest["revenue"]
-            * 100
-        )
+        if latest["revenue"] == 0:
+            profit_margin = np.nan
+            cash_flow_margin = np.nan
+        else:
+            profit_margin = (
+                latest["net_income"]
+                / latest["revenue"]
+                * 100
+            )
 
-        cash_flow_margin = (
-            latest["operating_cash_flow"]
-            / latest["revenue"]
-            * 100
-        )
+            cash_flow_margin = (
+                latest["operating_cash_flow"]
+                / latest["revenue"]
+                * 100
+            )
 
-        liability_to_asset = (
-            latest["liabilities"]
-            / latest["assets"]
-            * 100
-        )
-
+        if latest["assets"] == 0:
+            liability_to_asset = np.nan
+        else:
+            liability_to_asset = (
+                latest["liabilities"]
+                / latest["assets"]
+                * 100
+            )
+            
         return {
             "fiscal_year": int(latest["fiscal_year"]),
             "revenue_billions": float(latest["revenue"]),
@@ -233,7 +280,16 @@ class FinancialAnalyzer:
         
     def trend_summary(self) -> dict:
         #Generate high-level financial trends.
-
+        self._require_columns([
+        "fiscal_year",
+        "revenue",
+        "net_income"
+        ])
+        
+        if self.financials.empty:
+            raise ValueError(
+                "No financial records are available."
+            )
         revenue_growth = self.financials["revenue"].pct_change() * 100
 
         net_income_growth = (

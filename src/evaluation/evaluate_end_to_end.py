@@ -2,6 +2,7 @@ import pandas as pd
 
 from src.application.financial_assistant import FinancialAssistant
 from src.evaluation.failure_analysis import FailureAnalyzer
+from src.evaluation.root_cause_analysis import RootCauseAnalyzer
 
 def evaluate():
 
@@ -179,6 +180,39 @@ def evaluate():
     )
 
     summary = analyzer.summary()
+    
+    root_cause_analyzer = RootCauseAnalyzer(analysis_df)
+
+    root_cause_df = (
+        root_cause_analyzer.analyze()
+    )
+
+    root_cause_file = (
+        "data/evaluation/"
+        "root_cause_analysis.csv"
+    )
+
+    root_cause_df.to_csv(
+        root_cause_file,
+        index=False
+    )
+
+    root_cause_summary = (
+        root_cause_analyzer.summary()
+    )
+
+    print("\n")
+    print("=" * 70)
+    print("ROOT CAUSE ANALYSIS")
+    print("=" * 70)
+
+    for key, value in root_cause_summary.items():
+        print(f"{key}: {value}")
+
+    print(
+        f"\nRoot cause analysis saved to: "
+        f"{root_cause_file}"
+    )
 
     print("\n")
     print("=" * 70)
