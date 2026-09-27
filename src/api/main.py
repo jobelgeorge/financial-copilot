@@ -2,6 +2,8 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from src.application.financial_assistant import FinancialAssistant
+from src.llm.models import FinancialLLM
+
 
 app = FastAPI(
     title="Financial Copilot API",
@@ -44,8 +46,25 @@ def ask(request: QuestionRequest):
 
     try:
         result = assistant.ask(request.question)
-    except ValueError as e:
-        raise HTTPException(status_code=422, detail=str(e))
+    except ValueError:
+            llm = FinancialLLM()
+            fallback = llm.generate(
+                f"""You are Financial Copilot, a helpful assistant specialized in analyzing 
+    company financials from SEC EDGAR data (Apple, Tesla, Amazon).
+
+    If the user sends a greeting or off-topic message, respond naturally and briefly, 
+    then mention what you can help with. Do not make up financial data.
+
+    User message: {request.question}"""
+            )
+            return AnswerResponse(
+                question=request.question,
+                company="N/A",
+                tool="conversational",
+                answer=fallback,
+                answer_valid=True,
+            )
+
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Internal error: {str(e)}")
 

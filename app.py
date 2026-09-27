@@ -40,7 +40,8 @@ if prompt := st.chat_input("e.g. What is Apple's revenue trend?"):
                     json={"question": prompt},
                     timeout=60
                 )
-                response.raise_for_status()
+                if not response.ok:
+                    raise requests.exceptions.HTTPError(response=response)
                 data = response.json()
 
                 answer = data["answer"]
@@ -58,6 +59,15 @@ if prompt := st.chat_input("e.g. What is Apple's revenue trend?"):
 
             except requests.exceptions.ConnectionError:
                 answer = "Could not connect to the API. Make sure the FastAPI server is running on port 8000."
+                metadata = None
+                st.error(answer)
+
+            except requests.exceptions.HTTPError as e:
+                try:
+                    detail = e.response.json().get("detail", str(e))
+                except Exception:
+                    detail = str(e)
+                answer = f"{detail}"
                 metadata = None
                 st.error(answer)
 
