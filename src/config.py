@@ -12,3 +12,4 @@ POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD")
 
 APP_ENV = os.getenv("APP_ENV", "development")
 LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
