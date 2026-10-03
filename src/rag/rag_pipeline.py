@@ -51,4 +51,5 @@ User question: {question}
 
 Answer:"""
 
-        return llm.generate(prompt)
+        return llm.generate(prompt), context
+

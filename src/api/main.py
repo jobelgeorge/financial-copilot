@@ -31,6 +31,9 @@ class AnswerResponse(BaseModel):
     tool: str
     answer: str
     answer_valid: bool
+    judge_score: int = 0
+    judge_reasoning: str = ""
+    judge_passed: bool = False
 
 
 @app.get("/health")
@@ -73,6 +76,9 @@ def ask(request: QuestionRequest):
                 tool="conversational",
                 answer=fallback,
                 answer_valid=True,
+                judge_score=5,
+                judge_reasoning="Conversational response, no evaluation needed.",
+                judge_passed=True,
             )
 
     except Exception as e:
@@ -84,4 +90,7 @@ def ask(request: QuestionRequest):
         tool=result["tool"],
         answer=result["answer"],
         answer_valid=result["answer_valid"],
+        judge_score=result.get("judge_score", 0),
+        judge_reasoning=result.get("judge_reasoning", ""),
+        judge_passed=result.get("judge_passed", False),
     )

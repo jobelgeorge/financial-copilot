@@ -21,10 +21,19 @@ for message in st.session_state.messages:
         st.markdown(message["content"])
         if message.get("metadata"):
             meta = message["metadata"]
+            score = meta.get("judge_score", 0)
+            score_label = (
+                f"{score}/5" if score >= 4
+                else f"{score}/5" if score == 3
+                else f"{score}/5"
+            )
             cols = st.columns(3)
             cols[0].caption(f"**Company:** {meta['company']}")
             cols[1].caption(f"**Tool:** `{meta['tool']}`")
-            cols[2].caption(f"**Validated:** {meta['answer_valid']}")
+            cols[2].caption(f"**Accuracy:** {score_label}")
+            if meta.get("judge_reasoning"):
+                st.caption(f"_{meta['judge_reasoning']}_")
+
 
 if prompt := st.chat_input("e.g. What is Apple's revenue trend?"):
 
@@ -49,14 +58,24 @@ if prompt := st.chat_input("e.g. What is Apple's revenue trend?"):
                 metadata = {
                     "company": data["company"],
                     "tool": data["tool"],
-                    "answer_valid": "Yes" if data["answer_valid"] else "No",
+                    "judge_score": data.get("judge_score", 0),
+                    "judge_reasoning": data.get("judge_reasoning", ""),
                 }
 
                 st.markdown(answer)
+                score = data.get("judge_score", 0)
+                score_label = (
+                    f"{score}/5" if score >= 4
+                    else f"{score}/5" if score == 3
+                    else f"{score}/5"
+                )
                 cols = st.columns(3)
                 cols[0].caption(f"**Company:** {metadata['company']}")
                 cols[1].caption(f"**Tool:** `{metadata['tool']}`")
-                cols[2].caption(f"**Validated:** {metadata['answer_valid']}")
+                cols[2].caption(f"**Accuracy:** {score_label}")
+                if metadata.get("judge_reasoning"):
+                    st.caption(f"_{metadata['judge_reasoning']}_")
+
 
             except requests.exceptions.ConnectionError:
                 answer = "Could not connect to the API. Make sure the FastAPI server is running on port 8000."

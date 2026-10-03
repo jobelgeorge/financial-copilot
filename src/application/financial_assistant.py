@@ -5,6 +5,7 @@ from src.llm.answer_generator import AnswerGenerator
 from src.llm.models import FinancialLLM
 from src.llm.answer_validator import AnswerValidator
 from src.rag.rag_pipeline import RAGPipeline
+from src.llm.llm_judge import LLMJudge
 import os
 from dotenv import load_dotenv
 
@@ -38,7 +39,7 @@ class FinancialAssistant:
         self.loader = FinancialDataLoader(user_agent)
         self.answer_generator = AnswerGenerator(self.llm)
         self.answer_validator = AnswerValidator()
-
+        self.llm_judge = LLMJudge(self.llm)
     def ask(self, question):
         # Process a user's financial question.
 
@@ -71,9 +72,8 @@ class FinancialAssistant:
             
         # Step 2a: If qualitative question, use RAG instead of tool executor
         if tool_name == "rag_search":
-            
-            answer = self.rag_pipeline.answer(company, question, self.llm)
-            
+            answer, context = self.rag_pipeline.answer(company, question, self.llm)
+            judge_result = self.llm_judge.evaluate(question, context, answer)
             return {
                 "question": question,
                 "company": company,
@@ -81,6 +81,9 @@ class FinancialAssistant:
                 "result": {},
                 "answer": answer,
                 "answer_valid": True,
+                "judge_score": judge_result["score"],
+                "judge_reasoning": judge_result["reasoning"],
+                "judge_passed": judge_result["passed"],
             }
 
         # Step 2: Load financial data
@@ -123,6 +126,9 @@ class FinancialAssistant:
 
             previous_answer = answer
         
+        formatted_data = self.answer_generator.format_result(tool_name, result)
+        judge_result = self.llm_judge.evaluate(question, formatted_data, answer)
+
         return {
             "question": question,
             "company": company,
@@ -130,4 +136,7 @@ class FinancialAssistant:
             "result": result,
             "answer": answer,
             "answer_valid": answer_valid,
+            "judge_score": judge_result["score"],
+            "judge_reasoning": judge_result["reasoning"],
+            "judge_passed": judge_result["passed"],
         }
