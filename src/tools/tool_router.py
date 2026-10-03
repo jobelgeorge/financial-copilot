@@ -74,6 +74,23 @@ class ToolRouter:
                 "question": "Is Apple's profit growing faster than its revenue?",
                 "tool": "get_revenue_vs_income_growth",
             },
+            {
+                "question": "Why did Apple's revenue decline?",
+                "tool": "rag_search",
+            },
+            {
+                "question": "What risks does Tesla face?",
+                "tool": "rag_search",
+            },
+            {
+                "question": "What is Amazon's business strategy?",
+                "tool": "rag_search",
+            },
+            {
+                "question": "What did Apple say about competition in their annual report?",
+                "tool": "rag_search",
+            },
+
         ]
 
     def build_prompt(self, question):
@@ -186,47 +203,73 @@ Output:
         10. TREND SUMMARY:
             Use get_trend_summary when the question asks for an
             overall summary of long-term financial trends.
+            
+        11. QUALITATIVE / TEXT SEARCH:
+            Use rag_search when the question asks about:
+            - Why something happened (reasons, causes, explanations)
+            - Company strategy, business model, or outlook
+            - Risks, challenges, or threats the company faces
+            - What management said or disclosed in the report
+            - Competition, markets, or industry dynamics
+            - Any question that cannot be answered with numbers alone
+
+            Examples:
+            - Why did Apple's revenue decline?
+            - What risks does Tesla face?
+            - What is Amazon's growth strategy?
+            - What did Apple say about AI?
 
         Never invent a tool.
         Only select one of the provided tools.
         """
 
         prompt = f"""
-You are a financial analysis assistant.
+        You are a financial analysis assistant.
 
-Your task is to select the single best tool
-to answer the user's question.
+        Your task is to select the single best tool
+        to answer the user's question.
 
-Available tools:
+        Available tools:
 
-{tools_text}
+        {tools_text}
 
-Decision rules:
+        Decision rules:
 
-{decision_rules}
+        {decision_rules}
 
-Here are examples showing how questions
-map to tools:
+        Here are examples showing how questions
+        map to tools:
 
-{examples_text}
+        {examples_text}
 
-Now classify this new question.
+        Now classify this new question.
 
-User question:
-{question}
+        User question:
+        {question}
 
-Return ONLY a valid JSON object:
+        If the question is a greeting, small talk, or not about
+        financial analysis for a specific company, return:
 
-{{
-    "tool": "tool_name",
-    "arguments": {{
-        "company": "company_name"
-    }}
-}}
+        {{
+            "tool": null,
+            "arguments": {{
+                "company": null
+            }}
+        }}
 
-You may ONLY select one of the provided tools. 
-Never invent a tool name.
-"""
+        Otherwise, return ONLY a valid JSON object:
+
+        {{
+            "tool": "tool_name",
+            "arguments": {{
+                "company": "company_name"
+            }}
+        }}
+
+        You may ONLY select one of the provided tools.
+        Never invent a tool name.
+        """
+
 
         return prompt
 

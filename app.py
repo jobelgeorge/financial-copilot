@@ -10,7 +10,8 @@ st.set_page_config(
 )
 
 st.title("📈 Financial Copilot")
-st.caption("Ask questions about Apple, Tesla, or Amazon financials — grounded in SEC EDGAR data.")
+st.caption("Ask about any publicly listed US company. The financial data is fetched live from SEC EDGAR.")
+
 
 if "messages" not in st.session_state:
     st.session_state.messages = []

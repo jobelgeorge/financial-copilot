@@ -172,5 +172,22 @@ TOOLS = {
             "latest_profit_margin_pct": "float",
             "profit_margin_change_pct": "float"
         }
+    },
+    
+    "rag_search": {
+        "description": (
+            "Searches the full text of a company's 10-K SEC filing "
+            "to answer qualitative questions. Use this tool when the "
+            "question asks about reasons, causes, risks, strategy, "
+            "business model, competition, management disclosures, or "
+            "anything that cannot be answered with financial numbers alone."
+        ),
+        "input": {
+            "company": "string"
+        },
+        "output": {
+            "answer": "string — grounded in 10-K filing text"
+        }
     }
+
 }

@@ -4,6 +4,7 @@ from src.data.financial_data_loader import FinancialDataLoader
 from src.llm.answer_generator import AnswerGenerator
 from src.llm.models import FinancialLLM
 from src.llm.answer_validator import AnswerValidator
+from src.rag.rag_pipeline import RAGPipeline
 import os
 from dotenv import load_dotenv
 
@@ -26,6 +27,7 @@ class FinancialAssistant:
         self.router = ToolRouter(
             self.llm
         )
+        self.rag_pipeline = RAGPipeline()
         user_agent = os.getenv("SEC_USER_AGENT")
 
         if not user_agent:
@@ -66,6 +68,20 @@ class FinancialAssistant:
             raise ValueError(
                 "No company was identified."
             )
+            
+        # Step 2a: If qualitative question, use RAG instead of tool executor
+        if tool_name == "rag_search":
+            
+            answer = self.rag_pipeline.answer(company, question, self.llm)
+            
+            return {
+                "question": question,
+                "company": company,
+                "tool": "rag_search",
+                "result": {},
+                "answer": answer,
+                "answer_valid": True,
+            }
 
         # Step 2: Load financial data
         financials = self.loader.load(company)
