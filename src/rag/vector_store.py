@@ -1,8 +1,8 @@
 from pathlib import Path
 from typing import List
-
-import chromadb
 from sentence_transformers import SentenceTransformer
+import chromadb
+import re
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 CHROMA_PATH = PROJECT_ROOT / "data" / "chroma"
@@ -17,7 +17,12 @@ class VectorStore:
         self.embedder = SentenceTransformer(EMBEDDING_MODEL)
 
     def _collection_name(self, company: str) -> str:
-        return f"{company.lower().replace(' ', '_')}_10k"
+        name = company.lower()
+        name = re.sub(r'[^a-zA-Z0-9]', '_', name)   # replace & . , etc with underscore
+        name = re.sub(r'_+', '_', name)               # collapse multiple underscores
+        name = name.strip('_')                         # remove leading/trailing underscores
+        return f"{name}_10k"
+
 
     def is_ingested(self, company: str) -> bool:
         try:
